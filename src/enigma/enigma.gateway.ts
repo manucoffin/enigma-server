@@ -22,20 +22,16 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(private enigmaService: EnigmaService) {}
 
   async handleConnection(client: Socket) {
-    // A client has connected
     this.users++;
-
-    // Notify connected clients of current users
     this.server.emit('users', this.users);
 
+    this.broadcastDecryptKeys(client);
+    // Each time a client connects, we want to send him a batch to test
     this.broadcastNewBatch(client);
   }
 
   async handleDisconnect() {
-    // A client has disconnected
     this.users--;
-
-    // Notify connected clients of current users
     this.server.emit('users', this.users);
   }
 
@@ -44,12 +40,26 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     // First we mark the keys from the batch as "Pending"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
 
+    this.broadcastDecryptKeys(client);
+    this.broadcastNewBatch(client);
+  }
+
+  @SubscribeMessage('batch-rejected')
+  async onBatchRejected(client: Socket, keys: IDecryptKey[]) {
+    // First we mark the keys from the batch as "Rejected"
+    this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Rejected);
+
+    // Then we send to all clients the new statuses
+    this.broadcastDecryptKeys(client);
+
+    // Finally we need to send a new batch because the client is idle
     this.broadcastNewBatch(client);
   }
 
   // @UseGuards(new JwtAuthGuard())
   @SubscribeMessage('message-decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
+    // And then we mark only the valid key as "Validated"
     this.enigmaService.updateKeysStatus(
       [data.decryptKey],
       DecryptKeyStatus.Validated,
@@ -73,6 +83,10 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
       encryptedMessage: configService.getString('ENCRYPTED_MESSAGE'),
       decryptKeys: newBatch,
     });
+  }
+
+  private broadcastDecryptKeys(client): void {
+    client.broadcast.emit('decrypt-keys', this.enigmaService.decryptKeys);
   }
 
   // Broadcast batchs
