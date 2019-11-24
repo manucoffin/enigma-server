@@ -27,7 +27,10 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     this.broadcastDecryptKeys(client);
     // Each time a client connects, we want to send him a batch to test
-    this.broadcastNewBatch(client);
+
+    setInterval(() => {
+      this.broadcastNewBatch(client);
+    }, 1000);
   }
 
   async handleDisconnect() {
@@ -41,7 +44,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
 
     this.broadcastDecryptKeys(client);
-    this.broadcastNewBatch(client);
+    // this.broadcastNewBatch(client);
   }
 
   @SubscribeMessage('batch-rejected')
@@ -53,7 +56,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
 
     // Finally we need to send a new batch because the client is idle
-    this.broadcastNewBatch(client);
+    // this.broadcastNewBatch(client);
   }
 
   // @UseGuards(new JwtAuthGuard())

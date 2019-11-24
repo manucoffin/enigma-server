@@ -11,7 +11,6 @@ import {
 import { EnigmaService } from './enigma.service';
 import { IDecryptKey } from './interfaces/decrypt-key.interface';
 import { DecryptionFailedDto } from './dto/decryption-failed.dto';
-import { DecryptionSuccessDto } from './dto/decryption-success.dto';
 
 @ApiUseTags('Enigma')
 @Controller('enigma')
@@ -31,7 +30,7 @@ export class EnigmaController {
     description: 'Action unauthorized.',
   })
   getAlgorithm(): string {
-    return this.enigmaService.getAlgorithm();
+    return JSON.stringify(this.enigmaService.getAlgorithm());
   }
 
   @Get('validation-slug')
@@ -47,7 +46,7 @@ export class EnigmaController {
     description: 'Action unauthorized.',
   })
   getValidationSlug(): string {
-    return this.enigmaService.getValidationSlug();
+    return JSON.stringify(this.enigmaService.getValidationSlug());
   }
 
   @Post('decryption-failed')
