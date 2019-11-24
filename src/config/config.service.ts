@@ -12,7 +12,9 @@ type EnvType =
   | 'JWT_SECRET'
   | 'JWT_EXPIRES_IN'
   | 'PORT'
-  | 'VALIDATION_SLUG';
+  | 'ENCRYPTED_MESSAGE'
+  | 'VALIDATION_SLUG'
+  | 'BATCH_SIZE';
 
 @Injectable()
 export class ConfigService {
