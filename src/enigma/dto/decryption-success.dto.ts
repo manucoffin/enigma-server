@@ -5,5 +5,9 @@ import { IDecryptKey } from '../interfaces/decrypt-key.interface';
 export class DecryptionSuccessDto {
   @IsDefined()
   @ApiModelProperty()
+  readonly decryptedMessage: string;
+
+  @IsDefined()
+  @ApiModelProperty()
   readonly decryptKey: IDecryptKey;
 }

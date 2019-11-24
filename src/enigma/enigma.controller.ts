@@ -65,20 +65,4 @@ export class EnigmaController {
   postDecryptionFailed(@Body() payload: DecryptionFailedDto): IDecryptKey[] {
     return this.enigmaService.removeFailedKeys(payload.decryptKeys);
   }
-
-  @Post('decryption-success')
-  // @UseGuards(new JwtAuthGuard())
-  @ApiBearerAuth()
-  @ApiOkResponse({
-    description: 'Message decrypted.',
-  })
-  @ApiBadRequestResponse({
-    description: 'Bad request.',
-  })
-  @ApiUnauthorizedResponse({
-    description: 'Action unauthorized.',
-  })
-  postDecryptionSuccess(@Body() payload: DecryptionSuccessDto): boolean {
-    return this.enigmaService.onMessageDecrypted(payload.decryptKey);
-  }
 }

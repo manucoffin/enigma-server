@@ -57,11 +57,6 @@ export class EnigmaService {
     return this.decryptKeys;
   }
 
-  public onMessageDecrypted(decryptKey: IDecryptKey): boolean {
-    // Envoi message WS à tous les clients connectés pour dire que le message a été trouvé
-    return true;
-  }
-
   public generateBatch(batchSize): IDecryptKey[] {
     const batch = [];
 

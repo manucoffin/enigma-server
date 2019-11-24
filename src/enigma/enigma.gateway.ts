@@ -12,6 +12,7 @@ import {
   IDecryptKey,
 } from './interfaces/decrypt-key.interface';
 import { configService } from '../config/config.service';
+import { DecryptionSuccessDto } from './dto/decryption-success.dto';
 
 @WebSocketGateway()
 export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -20,12 +21,14 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   constructor(private enigmaService: EnigmaService) {}
 
-  async handleConnection() {
+  async handleConnection(client: Socket) {
     // A client has connected
     this.users++;
 
     // Notify connected clients of current users
     this.server.emit('users', this.users);
+
+    this.broadcastNewBatch(client);
   }
 
   async handleDisconnect() {
@@ -37,25 +40,39 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('batch-accepted')
-  onBatchAccepted(client: Socket, keys: IDecryptKey[]) {
+  async onBatchAccepted(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Pending"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
 
-    // Then we create a new batch
+    this.broadcastNewBatch(client);
+  }
+
+  // @UseGuards(new JwtAuthGuard())
+  @SubscribeMessage('message-decrypted')
+  async onMessageDecrypted(client, data: DecryptionSuccessDto) {
+    this.enigmaService.updateKeysStatus(
+      [data.decryptKey],
+      DecryptKeyStatus.Validated,
+    );
+
+    // We notify each client that the message has been decrypted
+    client.broadcast.emit('message-decrypted', {
+      decryptedMessage: data.decryptedMessage,
+      key: data.decryptKey,
+    });
+  }
+
+  private broadcastNewBatch(client): void {
+    // We create a new batch
     const newBatch = this.enigmaService.generateBatch(
       configService.getNumber('BATCH_SIZE'),
     );
 
-    // Finally we broadcast the new batch to all connected clients
+    // And we broadcast it to all connected clients
     client.broadcast.emit('batch', {
       encryptedMessage: configService.getString('ENCRYPTED_MESSAGE'),
       decryptKeys: newBatch,
     });
-  }
-
-  @SubscribeMessage('chat')
-  async onChat(client, message) {
-    client.broadcast.emit('chat', message);
   }
 
   // Broadcast batchs
