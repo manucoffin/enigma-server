@@ -79,24 +79,13 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     );
 
     // And we broadcast it to all connected clients
-    client.broadcast.emit('batch', {
+    this.server.emit('batch', {
       encryptedMessage: configService.getString('ENCRYPTED_MESSAGE'),
       decryptKeys: newBatch,
     });
   }
 
   private broadcastDecryptKeys(client): void {
-    client.broadcast.emit('decrypt-keys', this.enigmaService.decryptKeys);
+    this.server.emit('decrypt-keys', this.enigmaService.decryptKeys);
   }
-
-  // Broadcast batchs
-
-  // Client refuses batch => send not yet to server
-  // Client accept the batch => send yes to server + broadcast to other clients that batch was accepted
-
-  // Server broadcast remaining batches
-
-  // ...
-
-  // Broadcast message decrypted when client found it
 }
