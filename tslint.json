@@ -49,7 +49,7 @@
           "protected-instance-method",
           "private-instance-method"
         ],
-        "alphabetize": true
+        "alphabetize": false
       }
     ],
     "curly": false,

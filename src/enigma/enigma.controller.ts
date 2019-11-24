@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiBearerAuth,
@@ -9,6 +9,9 @@ import {
   ApiUseTags,
 } from '@nestjs/swagger';
 import { EnigmaService } from './enigma.service';
+import { IDecryptKey } from './interfaces/decrypt-key.interface';
+import { DecryptionFailedDto } from './dto/decryption-failed.dto';
+import { DecryptionSuccessDto } from './dto/decryption-success.dto';
 
 @ApiUseTags('Enigma')
 @Controller('enigma')
@@ -45,5 +48,37 @@ export class EnigmaController {
   })
   getValidationSlug(): string {
     return this.enigmaService.getValidationSlug();
+  }
+
+  @Post('decryption-failed')
+  // @UseGuards(new JwtAuthGuard())
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Combinations removed from list.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad request.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Action unauthorized.',
+  })
+  postDecryptionFailed(@Body() payload: DecryptionFailedDto): IDecryptKey[] {
+    return this.enigmaService.removeFailedKeys(payload.decryptKeys);
+  }
+
+  @Post('decryption-success')
+  // @UseGuards(new JwtAuthGuard())
+  @ApiBearerAuth()
+  @ApiOkResponse({
+    description: 'Message decrypted.',
+  })
+  @ApiBadRequestResponse({
+    description: 'Bad request.',
+  })
+  @ApiUnauthorizedResponse({
+    description: 'Action unauthorized.',
+  })
+  postDecryptionSuccess(@Body() payload: DecryptionSuccessDto): boolean {
+    return this.enigmaService.onMessageDecrypted(payload.decryptKey);
   }
 }
