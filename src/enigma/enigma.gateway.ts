@@ -13,6 +13,8 @@ import {
 } from './interfaces/decrypt-key.interface';
 import { configService } from '../config/config.service';
 import { DecryptionSuccessDto } from './dto/decryption-success.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @WebSocketGateway()
 export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -63,7 +65,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     // this.broadcastNewBatch(client);
   }
 
-  // @UseGuards(new JwtAuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   @SubscribeMessage('message-decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
     clearInterval(this.broadcastBatchInterval);
