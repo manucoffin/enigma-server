@@ -19,7 +19,13 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server;
   users: number = 0;
 
-  constructor(private enigmaService: EnigmaService) {}
+  constructor(private enigmaService: EnigmaService) {
+    this.broadcastBatchInterval = setInterval(() => {
+      this.broadcastNewBatch();
+    }, 1000);
+  }
+
+  private broadcastBatchInterval;
 
   async handleConnection(client: Socket) {
     this.users++;
@@ -28,9 +34,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
     // Each time a client connects, we want to send him a batch to test
 
-    setInterval(() => {
-      this.broadcastNewBatch(client);
-    }, 1000);
+    // this.broadcastNewBatch(client);
   }
 
   async handleDisconnect() {
@@ -62,20 +66,29 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   // @UseGuards(new JwtAuthGuard())
   @SubscribeMessage('message-decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
+    clearInterval(this.broadcastBatchInterval);
+    // First we mark all the keys as rejected
+    this.enigmaService.updateKeysStatus(
+      this.enigmaService.decryptKeys,
+      DecryptKeyStatus.Rejected,
+    );
+
     // And then we mark only the valid key as "Validated"
     this.enigmaService.updateKeysStatus(
       [data.decryptKey],
       DecryptKeyStatus.Validated,
     );
 
+    this.broadcastDecryptKeys(client);
+
     // We notify each client that the message has been decrypted
-    client.broadcast.emit('message-decrypted', {
+    this.server.emit('message-decrypted', {
       decryptedMessage: data.decryptedMessage,
       key: data.decryptKey,
     });
   }
 
-  private broadcastNewBatch(client): void {
+  private broadcastNewBatch(): void {
     // We create a new batch
     const newBatch = this.enigmaService.generateBatch(
       configService.getNumber('BATCH_SIZE'),
