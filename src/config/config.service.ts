@@ -14,16 +14,15 @@ type EnvType =
   | 'PORT'
   | 'ENCRYPTED_MESSAGE'
   | 'VALIDATION_SLUG'
-  | 'BATCH_SIZE';
+  | 'BATCH_SIZE'
+  | 'AUTH_SERVER_URL';
 
 @Injectable()
 export class ConfigService {
   public publicKey;
 
   constructor(private readonly httpService: HttpService) {
-    this.publicKey = this.httpService.get(
-      'http://localhost:3000/get-public-key',
-    );
+    this.publicKey = this.httpService.get(`http://localhost:8888/publicKey`);
 
     let filename = '.env';
     if (process.env.NODE_ENV === 'test') {

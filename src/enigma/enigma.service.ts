@@ -72,14 +72,6 @@ export class EnigmaService {
     return configService.getString('VALIDATION_SLUG');
   }
 
-  public removeFailedKeys(keys: IDecryptKey[]): IDecryptKey[] {
-    keys.map(k => {
-      this.decryptKeys.filter(c => c.id === k.id);
-    });
-
-    return this.decryptKeys;
-  }
-
   public generateBatch(batchSize): IDecryptKey[] {
     const batch = [];
 

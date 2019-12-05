@@ -34,9 +34,6 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('users', this.users);
 
     this.broadcastDecryptKeys(client);
-    // Each time a client connects, we want to send him a batch to test
-
-    // this.broadcastNewBatch(client);
   }
 
   async handleDisconnect() {
@@ -50,7 +47,6 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
 
     this.broadcastDecryptKeys(client);
-    // this.broadcastNewBatch(client);
   }
 
   @SubscribeMessage('batch-rejected')
@@ -60,12 +56,9 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     // Then we send to all clients the new statuses
     this.broadcastDecryptKeys(client);
-
-    // Finally we need to send a new batch because the client is idle
-    // this.broadcastNewBatch(client);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   @SubscribeMessage('message-decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
     clearInterval(this.broadcastBatchInterval);
@@ -88,6 +81,20 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
       decryptedMessage: data.decryptedMessage,
       key: data.decryptKey,
     });
+  }
+
+  @SubscribeMessage('reset')
+  async onReset(client) {
+    // Mark all the keys to unknown
+    this.enigmaService.updateKeysStatus(
+      this.enigmaService.decryptKeys,
+      DecryptKeyStatus.Unknown,
+    );
+
+    // And restart the interval
+    this.broadcastBatchInterval = setInterval(() => {
+      this.broadcastNewBatch();
+    }, 1000);
   }
 
   private broadcastNewBatch(): void {
