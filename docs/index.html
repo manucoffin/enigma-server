@@ -1,0 +1,3212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enigma WebSockets API 1.0.0 documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/atom-one-dark.min.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="relative md:flex lg:flex xl:flex">
+    
+
+<input id="burger-menu" type="checkbox" />
+<label for="burger-menu" class="shadow">
+  <div class="wrapper">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</label>
+<div class="sidebar-panel fixed pin-t pin-l pin-b w-64 bg-grey-lighter font-sans pt-8 pr-4 pb-4 pl-4">
+  <div class="sidebar-panel__content">
+    
+    <h1 class="text-2xl font-thin">Enigma WebSockets API 1.0.0</h1>
+    
+    <ul class="text-sm mt-10 list-reset mt-2">
+      <li class="mb-3">
+        <a class="js-menu-item text-grey-darkest no-underline" href="#introduction">Introduction</a>
+      </li>
+      
+      <li class="mb-3">
+        <a class="js-menu-item text-grey-darkest no-underline" href="#servers">Servers</a>
+      </li>
+      
+    </ul>
+    
+    <h2 class="text-xs uppercase text-grey mt-10 mb-4 font-thin">Operations</h2>
+    <ul class="text-sm list-reset mt-2">
+      
+
+      <!--Without tags in sidebar-->
+      
+      <li>
+        
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-subscribe-batch/accepted">
+          <span class="bg-green-dark font-bold no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Subscribe">Sub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">batch</span><span class="string-chunk" style="padding-top: 2px;">/accepted</span>
+
+          </div>
+          
+        </a>
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-subscribe-batch/rejected">
+          <span class="bg-green-dark font-bold no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Subscribe">Sub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">batch</span><span class="string-chunk" style="padding-top: 2px;">/rejected</span>
+
+          </div>
+          
+        </a>
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-subscribe-batch/decrypted">
+          <span class="bg-green-dark font-bold no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Subscribe">Sub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">batch</span><span class="string-chunk" style="padding-top: 2px;">/decrypted</span>
+
+          </div>
+          
+        </a>
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-subscribe-reset">
+          <span class="bg-green-dark font-bold no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Subscribe">Sub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">reset</span>
+
+          </div>
+          
+        </a>
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-publish-message/decrypted">
+          <span class="bg-blue-dark font-bold h-6 no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Publish">Pub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">message</span><span class="string-chunk" style="padding-top: 2px;">/decrypted</span>
+
+          </div>
+          
+        </a>
+        
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-publish-batch">
+          <span class="bg-blue-dark font-bold h-6 no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Publish">Pub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">batch</span>
+
+          </div>
+          
+        </a>
+        
+        
+        </a>
+      </li>
+      
+      <li>
+        
+        <a class="js-menu-item flex break-words no-underline text-grey-darkest mt-8 sm:mt-8 md:mt-3"
+          href="#operation-publish-decrypt-keys">
+          <span class="bg-blue-dark font-bold h-6 no-underline text-white uppercase p-1 mr-2 rounded"
+            style="height: 21px;font-size: 11px;" title="Publish">Pub</span>
+          
+          <div style="display:inline-block;">
+            
+<span class="string-chunk" style="padding-top: 2px;">decrypt-keys</span>
+
+          </div>
+          
+        </a>
+        
+        
+        </a>
+      </li>
+      
+    </ul>
+    
+    
+  </div>
+</div>
+
+    <div class="content-panel flex-1 leading-loose z-10">
+      <div class="center-block p-8">
+  <a name="introduction"></a>
+  <h1>Enigma WebSockets API 1.0.0</h1>
+  <div class="leading-normal mb-4">
+    
+    
+  </div>
+
+  <div class="markdown">
+    <p>The Enigma WebSockets API allows you to communicate between the application and server to try and decrypt crypted messages</p>
+
+  </div>
+
+
+  <div class="leading-normal mb-4">
+    
+  </div>
+</div>
+
+
+
+<a name="servers"></a>
+<div class="center-block p-8">
+
+  <h2 class="mb-4">Servers</h2>
+
+  
+    <div class="shadow bg-grey-lighter mb-3 px-4 py-3">
+      <div class="flex">
+        <div>
+          <div class="pr-4 font-mono">
+            
+<span class="string-chunk" >http:</span><span class="string-chunk" >/</span><span class="string-chunk" >/localhost:3000</span>
+
+
+            
+            <span class="bg-teal font-sans font-bold no-underline text-white uppercase rounded ml-2"
+              style="height: 20px;font-size: 11px;padding: 3px;">ws</span>
+            
+          </div>
+          <div class="text-xs text-grey-dark">
+            <p>Production server</p>
+
+          </div>
+        </div>
+      </div>
+
+      
+        <div>
+          
+        </div>
+      
+
+      
+    </div>
+  
+
+</div>
+
+
+
+
+
+<a name="operations"></a>
+<h2 class="mb-4 ml-8">Operations</h2>
+
+
+  <div class="responsive-container">
+    
+  </div>
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-subscribe-batch/accepted"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      
+      <span class="font-mono border border-green-dark text-green-dark uppercase p-1 rounded"
+        title="Subscribe">Sub</span>
+      
+      
+<span class="string-chunk" >batch</span><span class="string-chunk" >/accepted</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Batch Accepted
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">batch/accepted</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">User has taken a batch to test.</p>
+  <div class="mt-4 mb-4 markdown"><p>Mark all the keys from the incoming batch as &quot;Pending&quot;, and broadcast the updated list of keys to users.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+array&lt;object&gt;
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>A list of decrypt key objects</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+
+        
+        
+
+        
+          
+            <p class="pl-6 mb-2 text-xs font-bold uppercase text-grey-darker">Items:</p>
+            
+              
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">0</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+            
+          
+
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional items are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-batch/accepted-batch/accepted" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-batch/accepted-batch/accepted" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-batch/accepted-batch/accepted" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-batch/accepted-batch/accepted"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>[
+  {
+    "id": 0,
+    "key": 0,
+    "status": 0
+  }
+]</code></pre>
+    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+
+  <div class="responsive-container">
+    
+  </div>
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-subscribe-batch/rejected"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      
+      <span class="font-mono border border-green-dark text-green-dark uppercase p-1 rounded"
+        title="Subscribe">Sub</span>
+      
+      
+<span class="string-chunk" >batch</span><span class="string-chunk" >/rejected</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Batch Rejected
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">batch/rejected</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Batch has been tested and no key valid.</p>
+  <div class="mt-4 mb-4 markdown"><p>Mark all the keys from the batch as &quot;Rejected&quot;, and broadcast the updated list of keys to users.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+array&lt;object&gt;
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>A list of decrypt key objects</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+
+        
+        
+
+        
+          
+            <p class="pl-6 mb-2 text-xs font-bold uppercase text-grey-darker">Items:</p>
+            
+              
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">0</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+            
+          
+
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional items are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-batch/rejected-batch/rejected" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-batch/rejected-batch/rejected" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-batch/rejected-batch/rejected" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-batch/rejected-batch/rejected"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>[
+  {
+    "id": 0,
+    "key": 0,
+    "status": 0
+  }
+]</code></pre>
+    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+
+  <div class="responsive-container">
+    
+  </div>
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-subscribe-batch/decrypted"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      
+      <span class="font-mono border border-green-dark text-green-dark uppercase p-1 rounded"
+        title="Subscribe">Sub</span>
+      
+      
+<span class="string-chunk" >batch</span><span class="string-chunk" >/decrypted</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Batch Decrypted
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">batch/decrypted</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Batch has been tested and one key was valid.</p>
+  <div class="mt-4 mb-4 markdown"><p>Mark the valid key as &quot;Validated&quot; and all other keys as &quot;Rejected&quot;, and broadcast the updated list of keys to users.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">decryptedMessage</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+string
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>The decrypted message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">decryptKey</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-batch/decrypted-batch/decrypted" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-batch/decrypted-batch/decrypted" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-batch/decrypted-batch/decrypted" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-batch/decrypted-batch/decrypted"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>{
+  "decryptedMessage": "string",
+  "decryptKey": {
+    "id": 0,
+    "key": 0,
+    "status": 0
+  }
+}</code></pre>
+    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+
+  <div class="responsive-container">
+    
+  </div>
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-subscribe-reset"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      
+      <span class="font-mono border border-green-dark text-green-dark uppercase p-1 rounded"
+        title="Subscribe">Sub</span>
+      
+      
+<span class="string-chunk" >reset</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Reset
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">reset</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Reset the server.</p>
+  <div class="mt-4 mb-4 markdown"><p>Mark all the keys as &quot;Unkown&quot;, and broadcast the updated list of keys to users.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+void
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-reset-reset" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-reset-reset" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-reset-reset" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-reset-reset"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>""</code></pre>
+    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-publish-message/decrypted"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      <span class="font-mono border border-blue text-blue uppercase p-1 rounded" title="Publish">Pub</span>
+      
+      
+      
+<span class="string-chunk" >message</span><span class="string-chunk" >/decrypted</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Message Decrypted
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">message/decrypted</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Message containing the decrypted message and the valid key.</p>
+  <div class="mt-4 mb-4 markdown"><p>Notify all users that the message has been decrypted, when a message of type &quot;batch/decrypted&quot; is received.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">decryptedMessage</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+string
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>The decrypted message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-message/decrypted-message/decrypted" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-message/decrypted-message/decrypted" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-message/decrypted-message/decrypted" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-message/decrypted-message/decrypted"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+      
+        <h6 class="text-xs font-bold text-grey-darker">Example #1</h6>
+        <pre class="hljs mb-4 border border-grey-darkest rounded"><code>{
+  "decryptedMessage": "Je vais au texas avec Georges Abitbol.",
+  "key": {
+    "id": 5,
+    "key": -5,
+    "status": 0
+  }
+}</code></pre>
+      
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+  <div class="responsive-container">
+    
+  </div>
+
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-publish-batch"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      <span class="font-mono border border-blue text-blue uppercase p-1 rounded" title="Publish">Pub</span>
+      
+      
+      
+<span class="string-chunk" >batch</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Batch
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">batch</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Message containing a batch of keys.</p>
+  <div class="mt-4 mb-4 markdown"><p>Every second, a batch of keys is broadcasted to users, they can accept it or ignore it.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">encryptedMessage</span>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+string
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>A message encrypted with an algorithm</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">decryptKeys</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+array&lt;object&gt;
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>A list of decrypt key objects</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+
+        
+        
+
+        
+          
+            <p class="pl-6 mb-2 text-xs font-bold uppercase text-grey-darker">Items:</p>
+            
+              
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">0</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+            
+          
+
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional items are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-batch-batch" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-batch-batch" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-batch-batch" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-batch-batch"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+      
+        <h6 class="text-xs font-bold text-grey-darker">Example #1</h6>
+        <pre class="hljs mb-4 border border-grey-darkest rounded"><code>{
+  "encryptedMessage": "Oj afnx fz yjcfx fajh Ljtwljx Fgnygtq.",
+  "decryptKeys": [
+    {
+      "id": 1,
+      "key": -1,
+      "status": 0
+    },
+    {
+      "id": 2,
+      "key": -2,
+      "status": 0
+    },
+    {
+      "id": 3,
+      "key": -3,
+      "status": 0
+    }
+  ]
+}</code></pre>
+      
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+  <div class="responsive-container">
+    
+  </div>
+
+  <div class="responsive-container">
+    
+      
+
+<a name="operation-publish-decrypt-keys"></a>
+<div class="center-block p-8">
+  <div class="operation pt-8 pb-8">
+    <h3 class="font-mono text-base">
+      
+      <span class="font-mono border border-blue text-blue uppercase p-1 rounded" title="Publish">Pub</span>
+      
+      
+      
+<span class="string-chunk" >decrypt-keys</span>
+
+    </h3>
+
+    <div class="mt-4 mb-4 markdown"></div>
+
+    <p class="text-grey text-sm"></p>
+    <div class="mt-4 mb-4 markdown"></div>
+
+
+
+    
+
+
+    
+    <p>Accepts the following message:</p>
+    
+
+<div class="bg-grey-lighter rounded p-4 mt-2">
+  <div class="text-sm text-grey-darker mb-2">
+    
+    
+      Decrypt Keys
+      
+        <span class="border text-orange rounded text-xs ml-3 py-0 px-2">decrypt-keys</span>
+      
+    
+  </div>
+  <p class="text-grey-dark text-sm">Message containing all the keys.</p>
+  <div class="mt-4 mb-4 markdown"><p>Event used to broadcast the list of keys to users so they can keep an up to date list on the client side.</p>
+</div>
+  
+<div>
+  
+
+<div class="bg-grey-lighter  rounded">
+  <div class="is-open">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">Payload</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+array&lt;object&gt;
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>A list of decrypt key objects</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lightest py-4 rounded">
+        
+
+        
+        
+
+        
+          
+            <p class="pl-6 mb-2 text-xs font-bold uppercase text-grey-darker">Items:</p>
+            
+              
+
+<div class="bg-grey-lightest pl-8 pr-8 rounded">
+  <div class="">
+    <div class="js-prop cursor-pointer py-2 flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">0</span>
+        
+        <svg class="expand" version="1.1" viewBox="0 0 24 24" x="0"
+          xmlns="http://www.w3.org/2000/svg" y="0">
+          <polygon points="17.3 8.3 12 13.6 6.7 8.3 5.3 9.7 12 16.4 18.7 9.7 "></polygon>
+        </svg>
+        
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+object
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>An object containing the key to try and decrypt the message</p>
+</div>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+      <div class="children bg-grey-lighter py-4 rounded">
+        
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">id</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">key</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+            
+
+<div class="bg-grey-lighter pl-8 pr-8 rounded">
+  <div class="">
+    <div class=" flex property">
+      <div class="pr-4" style="margin-top:-2px; min-width: 25%;">
+        <span class="text-sm " style="word-break: break-word;">status</span>
+        
+        
+          <div class="text-red-dark text-xs">required</div>
+        
+      </div>
+
+      <div>
+        <div class="capitalize text-sm text-teal font-bold">
+          
+number
+          
+          
+          
+          <div class="inline-block">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+
+        
+          <div class="text-sm markdown"><p>0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated</p>
+</div>
+        
+        
+        
+        
+          <div class="text-xs">
+            Enum:
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">0</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">1</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">2</span>
+            
+              <span class="border text-orange rounded ml-1 py-0 px-2">3</span>
+            
+          </div>
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+
+
+          
+        
+
+        
+        
+
+        
+
+        
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional properties are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+            
+          
+
+          
+            <p class="pl-6 mb-2 mt-4 text-xs text-grey-darker">Additional items are allowed.</p>
+          
+        
+
+        
+
+        
+
+        
+
+        
+      </div>
+    
+  </div>
+</div>
+
+
+</div>
+
+  
+</div>
+
+
+    
+
+    
+<div class="mt-4">
+  
+</div>
+
+
+  </div>
+</div>
+
+<div class="right-block p-8">
+  <h4 class="text-lg text-white mb-4">Examples</h4>
+
+  
+  
+
+<form>
+  <input type="radio" checked id="example-payload-decrypt-keys-decrypt-keys" name="tab" class="examples-payload-tab hidden" />
+  <label for="example-payload-decrypt-keys-decrypt-keys" class="py-1 px-2 mr-2 mb-4 text-grey-lightest text-sm border rounded focus:outline-none cursor-pointer text-grey-lightest" >Payload</label>
+
+  <input type="radio" id="example-headers-decrypt-keys-decrypt-keys" name="tab" class="examples-headers-tab hidden" disabled />
+  <label for="example-headers-decrypt-keys-decrypt-keys"
+      class="py-1 px-2 mr-2 mb-4 text-sm border rounded focus:outline-none cursor-pointer text-grey-dark border-grey-dark opacity-25" title="This message does not have headers">Headers</label>
+
+  <div class="payload-examples mt-4">
+    
+    <pre class="hljs mb-4 border border-grey-darkest rounded"><code>[
+  {
+    "id": 0,
+    "key": 0,
+    "status": 0
+  }
+]</code></pre>
+    <h6 class="text-xs font-bold text-grey-darker italic">This example has been generated automatically.</h6>
+    
+  </div>
+
+  <div class="headers-examples mt-4">
+    
+  </div>
+</form>
+
+
+  
+</div>
+
+
+
+    
+  </div>
+  <div class="responsive-container">
+    
+  </div>
+
+
+
+
+    </div>
+    <div class="examples-panel absolute pin-t pin-r pin-b"></div>
+  </div>
+  <script src="js/highlight.min.js" type="application/javascript"></script>
+  <script src="js/main.js" type="application/javascript"></script>
+</body>
+</html>

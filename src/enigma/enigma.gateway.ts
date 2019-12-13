@@ -31,17 +31,14 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: Socket) {
     this.users++;
-    this.server.emit('users', this.users);
-
     this.broadcastDecryptKeys(client);
   }
 
   async handleDisconnect() {
     this.users--;
-    this.server.emit('users', this.users);
   }
 
-  @SubscribeMessage('batch-accepted')
+  @SubscribeMessage('batch/accepted')
   async onBatchAccepted(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Pending"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
@@ -49,7 +46,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
   }
 
-  @SubscribeMessage('batch-rejected')
+  @SubscribeMessage('batch/rejected')
   async onBatchRejected(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Rejected"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Rejected);
@@ -59,7 +56,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   // @UseGuards(AuthGuard('jwt'))
-  @SubscribeMessage('message-decrypted')
+  @SubscribeMessage('batch/decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
     clearInterval(this.broadcastBatchInterval);
     // First we mark all the keys as rejected
@@ -77,7 +74,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
 
     // We notify each client that the message has been decrypted
-    this.server.emit('message-decrypted', {
+    this.server.emit('message/decrypted', {
       decryptedMessage: data.decryptedMessage,
       key: data.decryptKey,
     });

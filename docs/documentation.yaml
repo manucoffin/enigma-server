@@ -1,0 +1,175 @@
+asyncapi: "2.0.0"
+info:
+  title: Enigma WebSockets API
+  version: "1.0.0"
+  description: |
+    The Enigma WebSockets API allows you to communicate between the application and server to try and decrypt crypted messages
+
+servers:
+  production:
+    url: http://localhost:3000
+    description: Production server
+    protocol: ws
+
+channels:
+  batch/accepted:
+    subscribe:
+      message:
+        $ref: "#/components/messages/batch-accepted"
+
+  batch/rejected:
+    subscribe:
+      message:
+        $ref: "#/components/messages/batch-rejected"
+
+  batch/decrypted:
+    subscribe:
+      message:
+        $ref: "#/components/messages/batch-decrypted"
+
+  reset:
+    subscribe:
+      message:
+        $ref: "#/components/messages/reset"
+
+  message/decrypted:
+    publish:
+      message:
+        $ref: "#/components/messages/message-decrypted"
+
+  batch:
+    publish:
+      message:
+        $ref: "#/components/messages/batch"
+
+  decrypt-keys:
+    publish:
+      message:
+        $ref: "#/components/messages/decrypt-keys"
+
+components:
+  messages:
+    batch-accepted:
+      title: Batch Accepted
+      name: batch/accepted
+      summary: User has taken a batch to test.
+      description: Mark all the keys from the incoming batch as "Pending", and broadcast the updated list of keys to users.
+      payload:
+        $ref: "#/components/schemas/DecryptKeys"
+
+    batch-rejected:
+      title: Batch Rejected
+      name: batch/rejected
+      summary: Batch has been tested and no key valid.
+      description: Mark all the keys from the batch as "Rejected", and broadcast the updated list of keys to users.
+      payload:
+        $ref: "#/components/schemas/DecryptKeys"
+
+    batch-decrypted:
+      title: Batch Decrypted
+      name: batch/decrypted
+      summary: Batch has been tested and one key was valid.
+      description: Mark the valid key as "Validated" and all other keys as "Rejected", and broadcast the updated list of keys to users.
+      payload:
+        type: object
+        properties:
+          decryptedMessage:
+            type: string
+            description: The decrypted message
+          decryptKey:
+            $ref: "#/components/schemas/DecryptKey"
+
+    reset:
+      title: Reset
+      name: reset
+      summary: Reset the server.
+      description: Mark all the keys as "Unkown", and broadcast the updated list of keys to users.
+      payload:
+        type: void
+
+    message-decrypted:
+      title: Message Decrypted
+      name: message/decrypted
+      summary: Message containing the decrypted message and the valid key.
+      description: Notify all users that the message has been decrypted, when a message of type "batch/decrypted" is received.
+      payload:
+        type: object
+        properties:
+          decryptedMessage:
+            type: string
+            description: The decrypted message
+          key:
+            $ref: "#/components/schemas/DecryptKey"
+      examples:
+        - payload:
+            decryptedMessage: "Je vais au texas avec Georges Abitbol."
+            key:
+              id: 5
+              key: -5
+              status: 0
+
+    batch:
+      title: Batch
+      name: batch
+      summary: Message containing a batch of keys.
+      description: Every second, a batch of keys is broadcasted to users, they can accept it or ignore it.
+      payload:
+        type: object
+        properties:
+          encryptedMessage:
+            type: string
+            description: A message encrypted with an algorithm
+          decryptKeys:
+            $ref: "#/components/schemas/DecryptKeys"
+      examples:
+        - payload:
+            encryptedMessage: "Oj afnx fz yjcfx fajh Ljtwljx Fgnygtq."
+            decryptKeys:
+              - id: 1
+                key: -1
+                status: 0
+              - id: 2
+                key: -2
+                status: 0
+              - id: 3
+                key: -3
+                status: 0
+
+    decrypt-keys:
+      title: Decrypt Keys
+      name: decrypt-keys
+      summary: Message containing all the keys.
+      description: Event used to broadcast the list of keys to users so they can keep an up to date list on the client side.
+      payload:
+        $ref: "#/components/schemas/DecryptKeys"
+
+  schemas:
+    DecryptKeyStatus:
+      type: number
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+      description: 0 = Unknown, 1 = Pending, 2 = Rejected, 3 = Validated
+
+    DecryptKey:
+      description: An object containing the key to try and decrypt the message
+      type: object
+      required:
+        - id
+        - key
+        - status
+      properties:
+        id:
+          type: number
+        key:
+          type: number
+        status:
+          $ref: "#/components/schemas/DecryptKeyStatus"
+
+    DecryptKeys:
+      type: array
+      description: A list of decrypt key objects
+      items:
+        $ref: "#/components/schemas/DecryptKey"
