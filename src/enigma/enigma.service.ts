@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpService, Injectable } from '@nestjs/common';
 import { configService } from '../config/config.service';
 import {
   DecryptKeyStatus,
   IDecryptKey,
 } from './interfaces/decrypt-key.interface';
+import { Observable } from 'rxjs';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class EnigmaService {
@@ -36,6 +38,8 @@ export class EnigmaService {
     { id: 26, key: -26, status: DecryptKeyStatus.Unknown },
   ];
 
+  constructor(private readonly httpService: HttpService) {}
+
   public getAlgorithm(): string {
     return `function decryptMessage(str, amount) {
       if (amount < 0) {
@@ -66,19 +70,6 @@ export class EnigmaService {
 
   public getValidationSlug(): string {
     return configService.getString('VALIDATION_SLUG');
-  }
-
-  public removeFailedKeys(keys: IDecryptKey[]): IDecryptKey[] {
-    keys.map(k => {
-      this.decryptKeys.filter(c => c.id === k.id);
-
-      // const deleteIndex = this.decryptKeys.findIndex(
-      //   c => c.id === combi.id,
-      // );
-      // delete this.decryptKeys[deleteIndex];
-    });
-
-    return this.decryptKeys;
   }
 
   public generateBatch(batchSize): IDecryptKey[] {

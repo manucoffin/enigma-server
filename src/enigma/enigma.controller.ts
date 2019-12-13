@@ -48,20 +48,4 @@ export class EnigmaController {
   getValidationSlug(): string {
     return JSON.stringify(this.enigmaService.getValidationSlug());
   }
-
-  @Post('decryption-failed')
-  // @UseGuards(new JwtAuthGuard())
-  @ApiBearerAuth()
-  @ApiOkResponse({
-    description: 'Combinations removed from list.',
-  })
-  @ApiBadRequestResponse({
-    description: 'Bad request.',
-  })
-  @ApiUnauthorizedResponse({
-    description: 'Action unauthorized.',
-  })
-  postDecryptionFailed(@Body() payload: DecryptionFailedDto): IDecryptKey[] {
-    return this.enigmaService.removeFailedKeys(payload.decryptKeys);
-  }
 }

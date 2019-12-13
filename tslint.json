@@ -36,7 +36,7 @@
     "no-consecutive-blank-lines": [true],
     "object-literal-sort-keys": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "public-static-field",

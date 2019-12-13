@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpService, Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
@@ -14,11 +14,16 @@ type EnvType =
   | 'PORT'
   | 'ENCRYPTED_MESSAGE'
   | 'VALIDATION_SLUG'
-  | 'BATCH_SIZE';
+  | 'BATCH_SIZE'
+  | 'AUTH_SERVER_URL';
 
 @Injectable()
 export class ConfigService {
-  constructor() {
+  public publicKey;
+
+  constructor(private readonly httpService: HttpService) {
+    this.publicKey = this.httpService.get(`http://localhost:8888/publicKey`);
+
     let filename = '.env';
     if (process.env.NODE_ENV === 'test') {
       filename = `.env.${process.env.NODE_ENV}`;
@@ -39,6 +44,12 @@ export class ConfigService {
   getString(key: EnvType) {
     return process.env[key];
   }
+
+  public getPublicKey(): any {
+    return this.publicKey;
+  }
 }
 
-export const configService = new ConfigService();
+const http = new HttpService();
+
+export const configService = new ConfigService(http);

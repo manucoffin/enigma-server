@@ -13,6 +13,8 @@ import {
 } from './interfaces/decrypt-key.interface';
 import { configService } from '../config/config.service';
 import { DecryptionSuccessDto } from './dto/decryption-success.dto';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 @WebSocketGateway()
 export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -29,42 +31,32 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: Socket) {
     this.users++;
-    this.server.emit('users', this.users);
-
     this.broadcastDecryptKeys(client);
-    // Each time a client connects, we want to send him a batch to test
-
-    // this.broadcastNewBatch(client);
   }
 
   async handleDisconnect() {
     this.users--;
-    this.server.emit('users', this.users);
   }
 
-  @SubscribeMessage('batch-accepted')
+  @SubscribeMessage('batch/accepted')
   async onBatchAccepted(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Pending"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Pending);
 
     this.broadcastDecryptKeys(client);
-    // this.broadcastNewBatch(client);
   }
 
-  @SubscribeMessage('batch-rejected')
+  @SubscribeMessage('batch/rejected')
   async onBatchRejected(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Rejected"
     this.enigmaService.updateKeysStatus(keys, DecryptKeyStatus.Rejected);
 
     // Then we send to all clients the new statuses
     this.broadcastDecryptKeys(client);
-
-    // Finally we need to send a new batch because the client is idle
-    // this.broadcastNewBatch(client);
   }
 
-  // @UseGuards(new JwtAuthGuard())
-  @SubscribeMessage('message-decrypted')
+  // @UseGuards(AuthGuard('jwt'))
+  @SubscribeMessage('batch/decrypted')
   async onMessageDecrypted(client, data: DecryptionSuccessDto) {
     clearInterval(this.broadcastBatchInterval);
     // First we mark all the keys as rejected
@@ -82,10 +74,24 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
 
     // We notify each client that the message has been decrypted
-    this.server.emit('message-decrypted', {
+    this.server.emit('message/decrypted', {
       decryptedMessage: data.decryptedMessage,
       key: data.decryptKey,
     });
+  }
+
+  @SubscribeMessage('reset')
+  async onReset(client) {
+    // Mark all the keys to unknown
+    this.enigmaService.updateKeysStatus(
+      this.enigmaService.decryptKeys,
+      DecryptKeyStatus.Unknown,
+    );
+
+    // And restart the interval
+    this.broadcastBatchInterval = setInterval(() => {
+      this.broadcastNewBatch();
+    }, 1000);
   }
 
   private broadcastNewBatch(): void {
