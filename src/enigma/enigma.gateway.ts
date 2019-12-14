@@ -46,6 +46,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.broadcastDecryptKeys(client);
   }
 
+  // @UseGuards(AuthGuard('jwt'))
   @SubscribeMessage('batch/rejected')
   async onBatchRejected(client: Socket, keys: IDecryptKey[]) {
     // First we mark the keys from the batch as "Rejected"
