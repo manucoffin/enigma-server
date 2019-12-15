@@ -24,7 +24,7 @@ export class EnigmaGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(private enigmaService: EnigmaService) {
     this.broadcastBatchInterval = setInterval(() => {
       this.broadcastNewBatch();
-    }, 1000);
+    }, 2000);
   }
 
   private broadcastBatchInterval;
